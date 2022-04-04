@@ -41,14 +41,21 @@ Tous les types de constantes et d'immuables ne sont pas encore implémentés. Le
         uint immutable maxBalance;
         address immutable owner = msg.sender;
 
+<<<<<<< HEAD
         constructor(uint _decimals, address _reference) {
             decimals = _decimals;
             // Les affectations aux immuables peuvent même accéder à l'environnement.
             maxBalance = _reference.balance;
+=======
+        constructor(uint decimals_, address ref) {
+            decimals = decimals_;
+            // Assignments to immutables can even access the environment.
+            maxBalance = ref.balance;
+>>>>>>> 5f4c91cc6d43031e2d785a588d5964765cabb67f
         }
 
-        function isBalanceTooHigh(address _other) public view returns (bool) {
-            return _other.balance > maxBalance;
+        function isBalanceTooHigh(address other) public view returns (bool) {
+            return other.balance > maxBalance;
         }
     }
 
