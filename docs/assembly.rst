@@ -45,19 +45,19 @@ langage Solidity sans changer de compilateur.
     pragma solidity >=0.4.16 <0.9.0;
 
     library GetCode {
-        function at(address _addr) public view returns (bytes memory o_code) {
+        function at(address addr) public view returns (bytes memory code) {
             assembly {
                 // retrieve the size of the code, this needs assembly
-                let size := extcodesize(_addr)
+                let size := extcodesize(addr)
                 // allocate output byte array - this could also be done without assembly
-                // by using o_code = new bytes(size)
-                o_code := mload(0x40)
+                // by using code = new bytes(size)
+                code := mload(0x40)
                 // new "memory end" including padding
-                mstore(0x40, add(o_code, and(add(add(size, 0x20), 0x1f), not(0x1f))))
+                mstore(0x40, add(code, and(add(add(size, 0x20), 0x1f), not(0x1f))))
                 // store length in memory
-                mstore(o_code, size)
+                mstore(code, size)
                 // actually retrieve the code, this needs assembly
-                extcodecopy(_addr, add(o_code, 0x20), 0, size)
+                extcodecopy(addr, add(code, 0x20), 0, size)
             }
         }
     }
@@ -74,43 +74,43 @@ code efficace, par exemple :
     library VectorSum {
         // This function is less efficient because the optimizer currently fails to
         // remove the bounds checks in array access.
-        function sumSolidity(uint[] memory _data) public pure returns (uint sum) {
-            for (uint i = 0; i < _data.length; ++i)
-                sum += _data[i];
+        function sumSolidity(uint[] memory data) public pure returns (uint sum) {
+            for (uint i = 0; i < data.length; ++i)
+                sum += data[i];
         }
 
         // We know that we only access the array in bounds, so we can avoid the check.
         // 0x20 needs to be added to an array because the first slot contains the
         // array length.
-        function sumAsm(uint[] memory _data) public pure returns (uint sum) {
-            for (uint i = 0; i < _data.length; ++i) {
+        function sumAsm(uint[] memory data) public pure returns (uint sum) {
+            for (uint i = 0; i < data.length; ++i) {
                 assembly {
-                    sum := add(sum, mload(add(add(_data, 0x20), mul(i, 0x20))))
+                    sum := add(sum, mload(add(add(data, 0x20), mul(i, 0x20))))
                 }
             }
         }
 
         // Same as above, but accomplish the entire code within inline assembly.
-        function sumPureAsm(uint[] memory _data) public pure returns (uint sum) {
+        function sumPureAsm(uint[] memory data) public pure returns (uint sum) {
             assembly {
                 // Load the length (first 32 bytes)
-                let len := mload(_data)
+                let len := mload(data)
 
                 // Skip over the length field.
                 //
                 // Keep temporary variable so it can be incremented in place.
                 //
-                // NOTE: incrementing _data would result in an unusable
-                //       _data variable after this assembly block
-                let data := add(_data, 0x20)
+                // NOTE: incrementing data would result in an unusable
+                //       data variable after this assembly block
+                let dataElementLocation := add(data, 0x20)
 
                 // Iterate until the bound is not met.
                 for
-                    { let end := add(data, mul(len, 0x20)) }
-                    lt(data, end)
-                    { data := add(data, 0x20) }
+                    { let end := add(dataElementLocation, mul(len, 0x20)) }
+                    lt(dataElementLocation, end)
+                    { data := add(dataElementLocation, 0x20) }
                 {
-                    sum := add(sum, mload(data))
+                    sum := add(sum, mload(dataElementLocation))
                 }
             }
         }
@@ -136,10 +136,17 @@ sont évaluées à l'adresse de la variable dans calldata, et non à la valeur e
 La variable peut également être assignée à un nouveau décalage, mais notez qu'aucune validation pour assurer que
 que la variable ne pointera pas au-delà de ``calldatasize()`` n'est effectuée.
 
+<<<<<<< HEAD
 Pour les pointeurs de fonctions externes, l'adresse et le sélecteur de fonction peuvent être
 accessible en utilisant ``x.address`` et ``x.selector``.
 Le sélecteur est constitué de quatre octets alignés à droite.
 Les deux valeurs peuvent être assignées. Par exemple :
+=======
+For external function pointers the address and the function selector can be
+accessed using ``x.address`` and ``x.selector``.
+The selector consists of four right-aligned bytes.
+Both values can be assigned to. For example:
+>>>>>>> 37a4e9e3dbcf1d59766b2c6d6ab8da6901507ca2
 
 .. code-block:: solidity
     :force:
@@ -228,6 +235,7 @@ variables locales à l'assemblage lorsque la fin de leur bloc est atteinte.
 Conventions dans Solidity
 -----------------------
 
+<<<<<<< HEAD
 Contrairement à l'assemblage EVM, Solidity possède des types dont la taille
 est inférieure à 256 bits, par exemple uint24. Pour des raisons d'efficacité,
 la plupart des opérations arithmétiques ignorent le fait que les types peuvent
@@ -245,6 +253,34 @@ auparavant et vous ne pouvez donc pas supposer que son contenu est de zéro octe
 Il n'existe pas de mécanisme intégré pour libérer la mémoire allouée. Voici un
 extrait d'assemblage que vous pouvez utiliser pour allouer de la mémoire qui suit
 le processus décrit ci-dessus.
+=======
+.. _assembly-typed-variables:
+
+Values of Typed Variables
+=========================
+
+In contrast to EVM assembly, Solidity has types which are narrower than 256 bits,
+e.g. ``uint24``. For efficiency, most arithmetic operations ignore the fact that
+types can be shorter than 256
+bits, and the higher-order bits are cleaned when necessary,
+i.e., shortly before they are written to memory or before comparisons are performed.
+This means that if you access such a variable
+from within inline assembly, you might have to manually clean the higher-order bits
+first.
+
+.. _assembly-memory-management:
+
+Memory Management
+=================
+
+Solidity manages memory in the following way. There is a "free memory pointer"
+at position ``0x40`` in memory. If you want to allocate memory, use the memory
+starting from where this pointer points at and update it.
+There is no guarantee that the memory has not been used before and thus
+you cannot assume that its contents are zero bytes.
+There is no built-in mechanism to release or free allocated memory.
+Here is an assembly snippet you can use for allocating memory that follows the process outlined above
+>>>>>>> 37a4e9e3dbcf1d59766b2c6d6ab8da6901507ca2
 
 .. code-block:: yul
 
@@ -265,7 +301,109 @@ Les tableaux de mémoire multidimensionnels sont des pointeurs vers des tableaux
 La longueur d'un tableau dynamique est stockée dans le premier emplacement du tableau et suivie par les éléments du tableau.
 
 .. warning::
+<<<<<<< HEAD
     Les tableaux de mémoire de taille statique n'ont pas de champ de longueur,
     mais celui-ci pourrait être ajouté ultérieurement pour permettre une meilleure convertibilité entre les tableaux de taille statique et dynamique.
     Pour permettre une meilleure convertibilité entre les tableaux de taille statique et dynamique.
     Donc ne vous y fiez pas.
+=======
+    Statically-sized memory arrays do not have a length field, but it might be added later
+    to allow better convertibility between statically- and dynamically-sized arrays, so
+    do not rely on this.
+
+Memory Safety
+=============
+
+Without the use of inline assembly, the compiler can rely on memory to remain in a well-defined
+state at all times. This is especially relevant for :ref:`the new code generation pipeline via Yul IR <ir-breaking-changes>`:
+this code generation path can move local variables from stack to memory to avoid stack-too-deep errors and
+perform additional memory optimizations, if it can rely on certain assumptions about memory use.
+
+While we recommend to always respect Solidity's memory model, inline assembly allows you to use memory
+in an incompatible way. Therefore, moving stack variables to memory and additional memory optimizations are,
+by default, disabled in the presence of any inline assembly block that contains a memory operation or assigns
+to solidity variables in memory.
+
+However, you can specifically annotate an assembly block to indicate that it in fact respects Solidity's memory
+model as follows:
+
+.. code-block:: solidity
+
+    assembly ("memory-safe") {
+        ...
+    }
+
+In particular, a memory-safe assembly block may only access the following memory ranges:
+
+- Memory allocated by yourself using a mechanism like the ``allocate`` function described above.
+- Memory allocated by Solidity, e.g. memory within the bounds of a memory array you reference.
+- The scratch space between memory offset 0 and 64 mentioned above.
+- Temporary memory that is located *after* the value of the free memory pointer at the beginning of the assembly block,
+  i.e. memory that is "allocated" at the free memory pointer without updating the free memory pointer.
+
+Furthermore, if the assembly block assigns to Solidity variables in memory, you need to assure that accesses to
+the Solidity variables only access these memory ranges.
+
+Since this is mainly about the optimizer, these restrictions still need to be followed, even if the assembly block
+reverts or terminates. As an example, the following assembly snippet is not memory safe:
+
+.. code-block:: solidity
+
+    assembly {
+      returndatacopy(0, 0, returndatasize())
+      revert(0, returndatasize())
+    }
+
+But the following is:
+
+.. code-block:: solidity
+
+    assembly ("memory-safe") {
+      let p := mload(0x40)
+      returndatacopy(p, 0, returndatasize())
+      revert(p, returndatasize())
+    }
+
+Note that you do not need to update the free memory pointer if there is no following allocation,
+but you can only use memory starting from the current offset given by the free memory pointer.
+
+If the memory operations use a length of zero, it is also fine to just use any offset (not only if it falls into the scratch space):
+
+.. code-block:: solidity
+
+    assembly ("memory-safe") {
+      revert(0, 0)
+    }
+
+Note that not only memory operations in inline assembly itself can be memory-unsafe, but also assignments to
+solidity variables of reference type in memory. For example the following is not memory-safe:
+
+.. code-block:: solidity
+
+    bytes memory x;
+    assembly {
+      x := 0x40
+    }
+    x[0x20] = 0x42;
+
+Inline assembly that neither involves any operations that access memory nor assigns to any solidity variables
+in memory is automatically considered memory-safe and does not need to be annotated.
+
+.. warning::
+    It is your responsibility to make sure that the assembly actually satisfies the memory model. If you annotate
+    an assembly block as memory-safe, but violate one of the memory assumptions, this **will** lead to incorrect and
+    undefined behaviour that cannot easily be discovered by testing.
+
+In case you are developing a library that is meant to be compatible across multiple versions
+of solidity, you can use a special comment to annotate an assembly block as memory-safe:
+
+.. code-block:: solidity
+
+    /// @solidity memory-safe-assembly
+    assembly {
+        ...
+    }
+
+Note that we will disallow the annotation via comment in a future breaking release, so if you are not concerned with
+backwards-compatibility with older compiler versions, prefer using the dialect string.
+>>>>>>> 37a4e9e3dbcf1d59766b2c6d6ab8da6901507ca2

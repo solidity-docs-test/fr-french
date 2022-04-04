@@ -8,9 +8,15 @@ Introduction Aux Smart Contracts
 Un Simple Smart Contract
 ***********************
 
+<<<<<<< HEAD
 Commençons par un exemple de base qui définit la valeur d'une variable
 et l'expose à l'accès d'autres contrats. Ce n'est pas grave si vous ne comprenez pas
 tout de suite, nous entrerons dans les détails plus tard.
+=======
+Let us begin with a basic example that sets the value of a variable and exposes
+it for other contracts to access. It is fine if you do not understand
+everything right now, we will go into more details later.
+>>>>>>> 37a4e9e3dbcf1d59766b2c6d6ab8da6901507ca2
 
 Exemple de stockage
 ===============
@@ -168,8 +174,8 @@ suivante :
 
 .. code-block:: solidity
 
-    function balances(address _account) external view returns (uint) {
-        return balances[_account];
+    function balances(address account) external view returns (uint) {
+        return balances[account];
     }
 
 Vous pouvez utiliser cette fonction pour demander le solde d'un seul compte.
@@ -220,6 +226,7 @@ déborde, c'est-à-dire lorsque ``balances[receiver] + amount`` en arithmétique
 que la valeur maximale de ``uint`` (``2**256 - 1``). Ceci est également vrai pour l'instruction
 ``balances[receiver] += amount;`` dans la fonction ``send``.
 
+<<<<<<< HEAD
 :ref:`Les erreurs <errors>` vous permettent de fournir plus d'informations à l'appelant sur
 pourquoi une condition ou une opération a échoué. Les erreurs sont utilisées avec l'instruction
 :ref:`revert statement <revert-statement>`. L'instruction revert interrompt et annule sans condition
@@ -227,6 +234,15 @@ inconditionnellement et annule toutes les modifications, de manière similaire �
 mais elle vous permet également de fournir le nom d'une erreur et des données supplémentaires qui seront fournies à l'appelant
 (et éventuellement à l'application frontale ou à l'explorateur de blocs) afin qu'un
 l'application frontale ou l'explorateur de blocs) afin de pouvoir déboguer ou réagir plus facilement à un échec.
+=======
+:ref:`Errors <errors>` allow you to provide more information to the caller about
+why a condition or operation failed. Errors are used together with the
+:ref:`revert statement <revert-statement>`. The ``revert`` statement unconditionally
+aborts and reverts all changes similar to the ``require`` function, but it also
+allows you to provide the name of an error and additional data which will be supplied to the caller
+(and eventually to the front-end application or block explorer) so that
+a failure can more easily be debugged or reacted upon.
+>>>>>>> 37a4e9e3dbcf1d59766b2c6d6ab8da6901507ca2
 
 La fonction "envoyer" peut être utilisée par n'importe qui (qui possède déjà certaines de ces pièces) pour envoyer un message à un autre utilisateur.
 qui possède déjà certaines de ces pièces) pour envoyer des pièces à quelqu'un d'autre. Si l'expéditeur
