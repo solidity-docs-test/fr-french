@@ -419,8 +419,8 @@ S'il n'y a pas de constructeur, le contrat prendra en charge le constructeur par
     abstract contract A {
         uint public a;
 
-        constructor(uint _a) {
-            a = _a;
+        constructor(uint a_) {
+            a = a_;
         }
     }
 
@@ -457,7 +457,7 @@ les contrats dérivés doivent tous les spécifier. Ceci peut être fait de deux
 
     contract Base {
         uint x;
-        constructor(uint _x) { x = _x; }
+        constructor(uint x_) { x = x_; }
     }
 
     // Soit spécifier directement dans la liste d'héritage...
@@ -467,9 +467,10 @@ les contrats dérivés doivent tous les spécifier. Ceci peut être fait de deux
 
     // ou par un "modificateur" du constructeur dérivé.
     contract Derived2 is Base {
-        constructor(uint _y) Base(_y * _y) {}
+        constructor(uint y) Base(y * y) {}
     }
 
+<<<<<<< HEAD
 L'une des façons est directement dans la liste d'héritage (``est Base(7)``).
 L'autre est dans la façon dont un modificateur est invoqué dans le cadre du
 constructeur dérivé (``Base(_y * _y)``). La première façon
@@ -480,6 +481,18 @@ arguments du constructeur de la base dépendent de ceux du
 contrat dérivé. Les arguments doivent être donnés soit dans la
 liste d'héritage ou dans le style modificateur dans le constructeur dérivé.
 Spécifier les arguments aux deux endroits est une erreur.
+=======
+One way is directly in the inheritance list (``is Base(7)``).  The other is in
+the way a modifier is invoked as part of
+the derived constructor (``Base(y * y)``). The first way to
+do it is more convenient if the constructor argument is a
+constant and defines the behaviour of the contract or
+describes it. The second way has to be used if the
+constructor arguments of the base depend on those of the
+derived contract. Arguments have to be given either in the
+inheritance list or in modifier-style in the derived constructor.
+Specifying arguments in both places is an error.
+>>>>>>> 803585d2e676588f130e37329ecfbfc7bc51dcd7
 
 Si un contrat dérivé ne spécifie pas les arguments de tous les constructeurs de ses contrats
 de base, il sera considéré comme un contrat abstrait.
