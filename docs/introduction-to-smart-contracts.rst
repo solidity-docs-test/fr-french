@@ -8,9 +8,15 @@ Introduction Aux Smart Contracts
 Un Simple Smart Contract
 ***********************
 
+<<<<<<< HEAD
 Commençons par un exemple de base qui définit la valeur d'une variable
 et l'expose à l'accès d'autres contrats. Ce n'est pas grave si vous ne comprenez pas
 tout de suite, nous entrerons dans les détails plus tard.
+=======
+Let us begin with a basic example that sets the value of a variable and exposes
+it for other contracts to access. It is fine if you do not understand
+everything right now, we will go into more details later.
+>>>>>>> e340cf6ca2b924cb42448b36890bcfbed3d716e4
 
 Exemple de stockage
 ===============
@@ -168,8 +174,8 @@ suivante :
 
 .. code-block:: solidity
 
-    function balances(address _account) external view returns (uint) {
-        return balances[_account];
+    function balances(address account) external view returns (uint) {
+        return balances[account];
     }
 
 Vous pouvez utiliser cette fonction pour demander le solde d'un seul compte.
@@ -220,6 +226,7 @@ déborde, c'est-à-dire lorsque ``balances[receiver] + amount`` en arithmétique
 que la valeur maximale de ``uint`` (``2**256 - 1``). Ceci est également vrai pour l'instruction
 ``balances[receiver] += amount;`` dans la fonction ``send``.
 
+<<<<<<< HEAD
 :ref:`Les erreurs <errors>` vous permettent de fournir plus d'informations à l'appelant sur
 pourquoi une condition ou une opération a échoué. Les erreurs sont utilisées avec l'instruction
 :ref:`revert statement <revert-statement>`. L'instruction revert interrompt et annule sans condition
@@ -227,6 +234,15 @@ inconditionnellement et annule toutes les modifications, de manière similaire �
 mais elle vous permet également de fournir le nom d'une erreur et des données supplémentaires qui seront fournies à l'appelant
 (et éventuellement à l'application frontale ou à l'explorateur de blocs) afin qu'un
 l'application frontale ou l'explorateur de blocs) afin de pouvoir déboguer ou réagir plus facilement à un échec.
+=======
+:ref:`Errors <errors>` allow you to provide more information to the caller about
+why a condition or operation failed. Errors are used together with the
+:ref:`revert statement <revert-statement>`. The ``revert`` statement unconditionally
+aborts and reverts all changes similar to the ``require`` function, but it also
+allows you to provide the name of an error and additional data which will be supplied to the caller
+(and eventually to the front-end application or block explorer) so that
+a failure can more easily be debugged or reacted upon.
+>>>>>>> e340cf6ca2b924cb42448b36890bcfbed3d716e4
 
 La fonction "envoyer" peut être utilisée par n'importe qui (qui possède déjà certaines de ces pièces) pour envoyer un message à un autre utilisateur.
 qui possède déjà certaines de ces pièces) pour envoyer des pièces à quelqu'un d'autre. Si l'expéditeur
@@ -395,6 +411,7 @@ renvoie ce code lorsqu'il est exécuté.
 Gas
 ===
 
+<<<<<<< HEAD
 Lors de sa création, chaque transaction est chargée d'une certaine quantité de **gaz**,
 dont le but est de limiter la quantité de travail nécessaire pour exécuter
 la transaction et de payer en même temps pour cette exécution. Pendant que l'EVM exécute la
@@ -403,6 +420,17 @@ transaction, le gaz est progressivement épuisé selon des règles spécifiques.
 Le **prix du gaz** est une valeur fixée par le créateur de la transaction, qui
 doit payer "prix du gaz * gaz" à l'avance à partir du compte d'envoi.
 S'il reste du gaz après l'exécution, il est remboursé au créateur de la même manière.
+=======
+Upon creation, each transaction is charged with a certain amount of **gas**.
+Imposing a cost on transactions serves to secure the network:
+it deincentivizes bad actors from spamming, and pays validators (i.e. miners and stakers)
+for the work that is required to validate new blocks. While the EVM executes the
+transaction, the gas is gradually depleted according to specific rules.
+
+The **gas price** is a value set by the originator of the transaction, i.e. `tx.origin`, who
+has to pay ``gas_price * gas`` up front from the sending account.
+If some gas is left after execution, it is refunded to the transaction originator.
+>>>>>>> e340cf6ca2b924cb42448b36890bcfbed3d716e4
 
 Si le gaz est épuisé à un moment donné (c'est-à-dire qu'il serait négatif),
 une exception pour épuisement du gaz est déclenchée, ce qui rétablit toutes les modifications
@@ -413,8 +441,13 @@ apportées à l'état dans la trame d'appel actuelle.
 Stockage, mémoire et pile
 =============================
 
+<<<<<<< HEAD
 La machine virtuelle d'Ethereum a trois zones où elle peut stocker des données-
 stockage, la mémoire et la pile, qui sont expliqués dans les paragraphes suivants.
+=======
+The Ethereum Virtual Machine has three areas where it can store data-
+storage, memory and the stack.
+>>>>>>> e340cf6ca2b924cb42448b36890bcfbed3d716e4
 
 Chaque compte dispose d'une zone de données appelée **storage**, qui est persistante entre les appels de fonction
 et les transactions.
@@ -497,10 +530,19 @@ limite de profondeur d'un peu moins de 1000 en pratique.
 Delegatecall / Callcode et bibliothèques
 =====================================
 
+<<<<<<< HEAD
 Il existe une variante spéciale d'un appel de message, appelée **delegatecall**,
 qui est identique à un appel de message, à l'exception du fait que
 le code à l'adresse cible est exécuté dans le contexte du contrat d'appel et
 appelant et que les valeurs de ``msg.sender`` et ``msg.value`` ne changent pas.
+=======
+There exists a special variant of a message call, named **delegatecall**
+which is identical to a message call apart from the fact that
+the code at the target address is executed in the context of the calling
+contract. In practice this means ``msg.sender`` and ``msg.value`` retain
+the values that were passed to the delegator, while executing code that
+lives in the delegated contract.
+>>>>>>> e340cf6ca2b924cb42448b36890bcfbed3d716e4
 
 Cela signifie qu'un contrat peut charger dynamiquement du code provenant d'une autre
 différente au moment de l'exécution. Le stockage, l'adresse actuelle et le solde
