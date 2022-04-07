@@ -94,7 +94,18 @@ dépendances (`evmone <https://github.com/ethereum/evmone/releases>`_,
 Sur macOS, certains des scripts de test attendent que GNU coreutils soit installé.
 Ceci peut être accompli plus facilement en utilisant Homebrew : ``brew install coreutils``.
 
+<<<<<<< HEAD
 Exécution des tests
+=======
+On Windows systems make sure that you have a privilege to create symlinks,
+otherwise several tests may fail.
+Administrators should have that privilege, but you may also
+`grant it to other users <https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/create-symbolic-links#policy-management>`_
+or
+`enable Developer Mode <https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development>`_.
+
+Running the Tests
+>>>>>>> 0dd7f9c871401690c3ad2f2343202181b28da1c8
 -----------------
 
 Solidity inclut différents types de tests, la plupart d'entre eux étant regroupés dans l'application ``Boost C++ Test Framework``.
