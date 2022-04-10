@@ -154,6 +154,14 @@ Membres des octets
 
 - ``bytes.concat(...) retourne (bytes memory)``: :ref:`Concatène un nombre variable d'octets et les arguments bytes1, ..., bytes32 dans un tableau d'octets.<bytes-concat>`
 
+.. index:: string members
+
+Members of string
+-----------------
+
+- ``string.concat(...) returns (string memory)``: :ref:`Concatenates variable number of string arguments to one string array<string-concat>`
+
+
 .. index:: assert, revert, require
 
 Traitement des erreurs
