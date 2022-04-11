@@ -9,11 +9,19 @@ Interfaces
 Les interfaces sont similaires aux contrats abstraits, mais aucune fonction ne peut y être implémentée.
 Il existe d'autres restrictions :
 
+<<<<<<< HEAD
 - Elles ne peuvent pas hériter d'autres contrats, mais elles peuvent hériter d'autres interfaces.
 - Toutes les fonctions déclarées doivent être externes.
 - Elles ne peuvent pas déclarer de constructeur.
 - Elles ne peuvent pas déclarer de variables d'état.
 - Elles ne peuvent pas déclarer de modificateurs.
+=======
+- They cannot inherit from other contracts, but they can inherit from other interfaces.
+- All declared functions must be external in the interface, even if they are public in the contract.
+- They cannot declare a constructor.
+- They cannot declare state variables.
+- They cannot declare modifiers.
+>>>>>>> 9e92c7a466cb2139e555a225fd61b2357085a4a0
 
 Certaines de ces restrictions peuvent être levées à l'avenir.
 
