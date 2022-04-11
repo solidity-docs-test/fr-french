@@ -2,9 +2,15 @@
 Mise en page d'un fichier source Solidity
 ********************************
 
+<<<<<<< HEAD
 Les fichiers sources peuvent contenir un nombre arbitraire de
 :ref:`définitions des contrats<contract_structure>`, directives d'importation,
 :ref:`directives pragmatiques<pragma>` et
+=======
+Source files can contain an arbitrary number of
+:ref:`contract definitions<contract_structure>`, import_ ,
+:ref:`pragma<pragma>` and :ref:`using for<using-for>` directives and
+>>>>>>> 9e92c7a466cb2139e555a225fd61b2357085a4a0
 :ref:`struct<structs>`, :ref:`enum<enums>`, :ref:`function<functions>`, :ref:`error<errors>`
 et :ref:`constant variable<constants>` définitions.
 
@@ -25,8 +31,16 @@ Le compilateur ne valide pas que la licence fait partie de la
 `liste autorisée par SPDX <https://spdx.org/licenses/>`_, mais
 il inclut la chaîne fournie dans les :ref:`métadonnées du code source <metadata>`.
 
+<<<<<<< HEAD
 Si vous ne voulez pas spécifier une licence ou si le code source n'est pas
 pas open-source, veuillez utiliser la valeur spéciale ``UNLICENSED``.
+=======
+If you do not want to specify a license or if the source code is
+not open-source, please use the special value ``UNLICENSED``.
+Note that ``UNLICENSED`` (no usage allowed, not present in SPDX license list)
+is different from ``UNLICENSE`` (grants all rights to everyone).
+Solidity follows `the npm recommendation <https://docs.npmjs.com/cli/v7/configuring-npm/package-json#license>`_.
+>>>>>>> 9e92c7a466cb2139e555a225fd61b2357085a4a0
 
 Le fait de fournir ce commentaire ne vous libère bien sûr pas des autres
 obligations liées à la licence, comme l'obligation de mentionner
