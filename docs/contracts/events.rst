@@ -78,11 +78,12 @@ quatre arguments indexés au lieu de trois.
 
     contract ClientReceipt {
         event Deposit(
-            address indexed _from,
-            bytes32 indexed _id,
-            uint _value
+            address indexed from,
+            bytes32 indexed id,
+            uint value
         );
 
+<<<<<<< HEAD
         function deposit(bytes32 _id) public payable {
             // Les événements sont émis en utilisant `emit`, suivi par
             // le nom de l'événement et les arguments
@@ -90,6 +91,15 @@ quatre arguments indexés au lieu de trois.
             // (même profondément imbriquée) peut être détectée à partir de
             // l'API JavaScript en filtrant pour `Deposit`.
             emit Deposit(msg.sender, _id, msg.value);
+=======
+        function deposit(bytes32 id) public payable {
+            // Events are emitted using `emit`, followed by
+            // the name of the event and the arguments
+            // (if any) in parentheses. Any such invocation
+            // (even deeply nested) can be detected from
+            // the JavaScript API by filtering for `Deposit`.
+            emit Deposit(msg.sender, id, msg.value);
+>>>>>>> fbecdbe76df55cfbc2813636d6be36c734438acc
         }
     }
 
@@ -124,9 +134,9 @@ Le résultat de l'opération ci-dessus ressemble à ce qui suit (découpé) :
 
     {
        "returnValues": {
-           "_from": "0x1111…FFFFCCCC",
-           "_id": "0x50…sd5adb20",
-           "_value": "0x420042"
+           "from": "0x1111…FFFFCCCC",
+           "id": "0x50…sd5adb20",
+           "value": "0x420042"
        },
        "raw": {
            "data": "0x7f…91385",

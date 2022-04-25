@@ -94,7 +94,18 @@ dépendances (`evmone <https://github.com/ethereum/evmone/releases>`_,
 Sur macOS, certains des scripts de test attendent que GNU coreutils soit installé.
 Ceci peut être accompli plus facilement en utilisant Homebrew : ``brew install coreutils``.
 
+<<<<<<< HEAD
 Exécution des tests
+=======
+On Windows systems make sure that you have a privilege to create symlinks,
+otherwise several tests may fail.
+Administrators should have that privilege, but you may also
+`grant it to other users <https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/create-symbolic-links#policy-management>`_
+or
+`enable Developer Mode <https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development>`_.
+
+Running the Tests
+>>>>>>> fbecdbe76df55cfbc2813636d6be36c734438acc
 -----------------
 
 Solidity inclut différents types de tests, la plupart d'entre eux étant regroupés dans l'application ``Boost C++ Test Framework``.
@@ -469,8 +480,13 @@ Par exemple, ``pragma solidity >=0.4.0 <0.9.0;``.
 Exécution des Tests de Documentation
 ---------------------------
 
+<<<<<<< HEAD
 Assurez-vous que vos contributions passent nos tests de documentation en exécutant ``./scripts/docs.sh`` qui installe les dépendances nécessaires à la documentation et vérifie les problèmes éventuels.
 Nécessaires à la documentation et vérifie l'absence de problèmes tels que des liens brisés ou des problèmes de syntaxe.
+=======
+Make sure your contributions pass our documentation tests by running ``./docs/docs.sh`` that installs dependencies
+needed for documentation and checks for any problems such as broken links or syntax issues.
+>>>>>>> fbecdbe76df55cfbc2813636d6be36c734438acc
 
 Conception du langage Solidity
 ========================
