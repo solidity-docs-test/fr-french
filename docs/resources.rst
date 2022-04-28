@@ -13,8 +13,13 @@ Ressources générales
 * `Solidity Chat des utilisateurs de langues <https://matrix.to/#/#ethereum_solidity:gitter.im>`_
 * `Solidity Chat des développeurs de compilateurs <https://matrix.to/#/#ethereum_solidity-dev:gitter.im>`_
 * `Awesome Solidity <https://github.com/bkrem/awesome-solidity>`_
+<<<<<<< HEAD
 * `Solidity par Example <https://solidity-by-example.org/>`_
 
+=======
+* `Solidity by Example <https://solidity-by-example.org/>`_
+* `Solidity Documentation Community Translations <https://github.com/solidity-docs>`_
+>>>>>>> d55b84ff63b1707f974f38c4d84088adb995b46a
 
 Environnements de développement intégrés (Ethereum)
 ==============================================
@@ -28,15 +33,21 @@ Environnements de développement intégrés (Ethereum)
     * `Embark <https://framework.embarklabs.io/>`_
         Plateforme de développeurs pour la création et le déploiement d'applications décentralisées.
 
+    * `Foundry <https://github.com/gakonst/foundry>`_
+        Fast, portable and modular toolkit for Ethereum application development written in Rust.
+
     * `Hardhat <https://hardhat.org/>`_
         Environnement de développement Ethereum avec réseau Ethereum local, fonctions de débogage et écosystème de plugins.
 
     * `Remix <https://remix.ethereum.org/>`_
         IDE basé sur un navigateur avec compilateur intégré et environnement d'exécution Solidity sans composants côté serveur.
 
+<<<<<<< HEAD
     * `Scaffold-ETH <https://github.com/austintgriffith/scaffold-eth>`_
         Pile de développement Ethereum axée sur des itérations rapides du produit.
 
+=======
+>>>>>>> d55b84ff63b1707f974f38c4d84088adb995b46a
     * `Truffle <https://www.trufflesuite.com/truffle>`_
         Cadre de développement Ethereum.
 
@@ -83,7 +94,14 @@ Intégrations de l'éditeur
     * `Visual Studio Code extension <https://juan.blanco.ws/solidity-contracts-in-visual-studio-code/>`_
         Plugin Solidity pour Microsoft Visual Studio Code qui comprend la coloration syntaxique et le compilateur Solidity.
 
+<<<<<<< HEAD
 Outils Solidity
+=======
+    * `Solidity Visual Auditor extension <https://marketplace.visualstudio.com/items?itemName=tintinweb.solidity-visual-auditor>`_
+        Adds security centric syntax and semantic highlighting to Visual Studio Code.
+
+Solidity Tools
+>>>>>>> d55b84ff63b1707f974f38c4d84088adb995b46a
 ==============
 
 * `ABI to Solidity interface converter <https://gist.github.com/chriseth/8f533d133fa0c15b0d6eaf3ec502c82b>`_
@@ -113,6 +131,9 @@ Outils Solidity
 * `PIET <https://piet.slock.it/>`_
     Un outil pour développer, auditer et utiliser les contrats intelligents Solidity à travers une interface graphique simple.
 
+* `Scaffold-ETH <https://github.com/scaffold-eth/scaffold-eth>`_
+    Forkable Ethereum development stack focused on fast product iterations.
+
 * `sol2uml <https://www.npmjs.com/package/sol2uml>`_
     Générateur de diagrammes de classe en langage de modélisation unifié (UML) pour les contrats Solidity.
 
@@ -130,6 +151,9 @@ Outils Solidity
 
 * `Solhint <https://github.com/protofire/solhint>`_
     Linter Solidity qui fournit la sécurité, un guide de style et des règles de bonnes pratiques pour la validation des contrats intelligents.
+
+* `Sourcify <https://sourcify.dev/>`_
+    Decentralized automated contract verification service and public repository of contract metadata.
 
 * `Sūrya <https://github.com/ConsenSys/surya/>`_
     Outil utilitaire pour les systèmes de contrats intelligents, offrant un certain nombre de sorties visuelles et des informations sur la structure des contrats.  Il permet également d'interroger le graphe des appels de fonction.
