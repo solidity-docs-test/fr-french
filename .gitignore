@@ -62,6 +62,7 @@ CMakeLists.txt.user
 # place to put local temporary files
 tmp
 
+<<<<<<< HEAD
 
 .circleci
 cmake/
@@ -82,3 +83,8 @@ tools/
 .editorconfig
 
 CODE_OF_CONDUCT.md
+=======
+# OS specific local files
+.DS_Store
+Thumbs.db
+>>>>>>> 3e3e73e3805592700dd5501bff6d6e918c52071c
