@@ -127,11 +127,19 @@ de suffrages.
                 require(to != msg.sender, "Found loop in delegation.");
             }
 
+<<<<<<< HEAD
             // Puisque `sender` est une référence, cela
             // modifie `voters[msg.sender].voted`
+=======
+            // Since `sender` is a reference, this
+            // modifies `voters[msg.sender].voted`
+            Voter storage delegate_ = voters[to];
+
+            // Voters cannot delegate to wallets that cannot vote.
+            require(delegate_.weight >= 1);
+>>>>>>> c3a5c83d38ffcccb10a69e20b0ea097bef383923
             sender.voted = true;
             sender.delegate = to;
-            Voter storage delegate_ = voters[to];
             if (delegate_.voted) {
                 // Si le délégué a déjà voté,
                 // ajouter directement au nombre de votes
